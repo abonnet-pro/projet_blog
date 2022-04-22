@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import LoginForm from "../component/login-form.component";
 import {connect} from "../service/login.service";
 
-export default function Login() {
+export default function LoginContainer() {
 
     const navigate = useNavigate();
     const [form, setForm] = useState({ email: 'admin@admin.fr', password: 'Admin!' });

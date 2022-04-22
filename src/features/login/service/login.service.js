@@ -16,3 +16,7 @@ export function connect(user, callback) {
         .then(data => callback(data))
         .catch(error => console.log(error));
 }
+
+export function createAccount(user, callback) {
+
+}
