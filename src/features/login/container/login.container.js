@@ -23,6 +23,7 @@ export default function LoginContainer() {
 
         const loginCallBack = (data) => {
             if(data.data !== null) {
+                localStorage.clear();
                 setLocaleStorage(JWT_KEY, data.jwt);
                 setLocaleStorage(USER_KEY, data.user)
                 contextPrototype.setUser(data.user);

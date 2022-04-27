@@ -51,3 +51,8 @@
 .m-10 {
   margin: 50px 200px;
 }
+
+.h-fit {
+  height: fit-content;
+}
+

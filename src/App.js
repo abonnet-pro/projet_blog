@@ -9,8 +9,8 @@ import {UserContext} from "./services/usersContext.service"
 import LoginContainer from "./features/login/container/login.container";
 import Logout from "./features/login/container/logout.container";
 import Home from "./features/home/home";
-import Articles from "./features/articles/component/articles.component";
 import NewAccountContainer from "./features/login/container/new-account.container";
+import ArticleDetailContainer from "./features/articles/container/article-detail.container";
 
 function App() {
 
@@ -30,6 +30,7 @@ function App() {
                   <Route path="login" element={ <LoginContainer/> }/>
                   <Route path="logout" element={ <Logout setUser={ setUser }/> }/>
                   <Route path="/creation/compte" element={ <NewAccountContainer/> }/>
+                  <Route path="/article" element={ <ArticleDetailContainer/> }/>
               </Routes>
 
             </main>

@@ -21,7 +21,10 @@ export default function MyNavBar() {
                         <MyNavItem path="/contact" itemName="Contact" isActive={ false }/>
                     </ul>
 
-                    <Link to="/creation/compte" className="btn btn-outline-primary ms-2">Créer un compte</Link>
+                    {
+                        user?.id ? null : <Link to="/creation/compte" className="btn btn-outline-primary ms-2">Créer un compte</Link>
+                    }
+
                     {
                         user?.id ?
                             <Link to="/logout" className="btn btn-danger ms-2">Se deconnecter</Link>
