@@ -1,9 +1,10 @@
 import {API_IMAGE} from "../../../utils/url.utils";
 import {getDiffDaysByNow} from "../../../utils/date.utils";
 import {Link} from "react-router-dom";
-import {getLectureTime} from "../service/articles.service";
+import {getLectureTime, isArticleLiked, isArticleShared} from "../service/articles.service";
+import {contextPrototype} from "../../../services/usersContext.service";
 
-export default function Articles({ articles }) {
+export default function Articles({ articles, handleClickLike, handleClickShare }) {
 
     const optionsDate = { weekday: 'long', month: 'long', day: 'numeric' };
 
@@ -25,13 +26,22 @@ export default function Articles({ articles }) {
         return hDisplay + mDisplay + sDisplay;
     }
 
+    const getArticleLiked = (article) => {
+        return isArticleLiked(article) ? "red bi bi-suit-heart-fill" : "bi bi-suit-heart";
+    }
+
+    const getArticleShared = (article) => {
+        return isArticleShared(article) ? "bi bi-share-fill" : "bi bi-share";
+    }
     return (
         <>
             {
                 articles.map(article => {
                     return (
                         <div key={ article.id } className="card mt-4 mb-4" >
+
                             <h3 className="card-header">{ article?.attributes.titre } <span className="badge rounded-pill bg-primary">{ article?.attributes.categorie.data?.attributes.titre }</span></h3>
+
                             <div className="card-body container m-0">
                                 <div className="row">
                                     <div className="col-1">
@@ -50,10 +60,25 @@ export default function Articles({ articles }) {
                                 <p className="card-text">{ article?.attributes.lignes }</p>
                                 <Link to='/article' state={ article } className="btn btn-primary">Ouvrir l'article</Link>
                             </div>
-                            <div className="card-body">
-                                <i data-bs-toggle="tooltip" data-bs-placement="top" title="like" className="bi bi-star pointer me-2 align-text-bottom"/><span className="me-4">0</span>
-                                <i data-bs-toggle="tooltip" data-bs-placement="top" title="partage" className="bi bi-share pointer me-2 align-text-bottom"/><span>0</span>
-                            </div>
+
+                            {
+                                contextPrototype.user ?
+                                    <div className="card-body">
+
+                                        <i data-bs-toggle="tooltip" data-bs-placement="top" title="like"
+                                           className={ "pointer me-2 align-text-bottom " + getArticleLiked(article) }
+                                           onClick={ () => handleClickLike(article) }/>
+                                        <span className="me-4">{ article?.attributes.likes.data.length }</span>
+
+                                        <i data-bs-toggle="tooltip" data-bs-placement="top" title="partage"
+                                           className={ "pointer me-2 align-text-bottom " + getArticleShared(article) }
+                                           onClick={ () => handleClickShare(article) }/>
+                                        <span className="me-4">{ article?.attributes.shares.data.length }</span>
+                                    </div>
+                                :
+                                    null
+                            }
+
                             <div className="card-footer text-muted">{ getDaysPosted(article?.attributes.createdAt) }</div>
                         </div>
                 )

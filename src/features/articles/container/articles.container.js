@@ -2,14 +2,11 @@ import Articles from "../component/articles.component";
 import {useEffect, useState} from "react";
 import {API} from "../../../utils/url.utils";
 import ReactPaginate from "react-paginate";
-import {ITEM_PER_PAGE} from "../service/articles.service";
+import {ITEM_PER_PAGE, likeArticle, shareArticle} from "../service/articles.service";
 import ArticlesSort from "../component/articles-sort.component";
 import ArticlesFilter from "../component/articles-filter.component";
-import {useNavigate} from "react-router-dom";
 
 export default function ArticlesContainer() {
-
-    const navigate = useNavigate();
 
     const [articles, setArticles] = useState([]);
     const [pageCount, setPageCount] = useState(0);
@@ -35,8 +32,12 @@ export default function ArticlesContainer() {
         setItemOffset(newOffset);
     };
 
-    const handleClickCard = (articleId) => {
-        navigate(`/article/${ articleId }`);
+    const handleClickLike = (article) => {
+        likeArticle(article, callApi)
+    }
+
+    const handleClickShare = (article) => {
+        shareArticle(article, callApi)
     }
 
     return (
@@ -53,7 +54,7 @@ export default function ArticlesContainer() {
                 </div>
             </div>
 
-            <Articles articles={ articles } handleClickCard={ handleClickCard }/>
+            <Articles articles={ articles } handleClickLike={ handleClickLike } handleClickShare={ handleClickShare }/>
 
             <ReactPaginate
                 breakClassName={'page-item'}

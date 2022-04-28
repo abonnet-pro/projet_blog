@@ -2,7 +2,9 @@ import React from "react"
 
 export const contextPrototype = {
     user: {},
-    setUser: () => {}
+    userSave: {},
+    setUser: () => {},
+    setUserSave: () => {}
 }
 
 export const UserContext = React.createContext(contextPrototype)

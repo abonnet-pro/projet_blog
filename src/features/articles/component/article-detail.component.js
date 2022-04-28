@@ -22,10 +22,6 @@ export default function ArticleDetail({ article }) {
             <div className="card-body">
                 <p className="card-text">{ article?.attributes.lignes }</p>
             </div>
-            <div className="card-body">
-                <i data-bs-toggle="tooltip" data-bs-placement="top" title="like" className="bi bi-star pointer me-3"/>
-                <i data-bs-toggle="tooltip" data-bs-placement="top" title="partage" className="bi bi-share pointer"/>
-            </div>
         </div>
     )
 }

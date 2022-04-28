@@ -1,6 +1,6 @@
 import {toast} from "react-toastify";
 
-export function connect(user, callback) {
+export function connect(user, loginCallBack, utilisateurCallBack) {
 
     const body = {
         identifier: user.email,
@@ -15,7 +15,12 @@ export function connect(user, callback) {
 
     fetch(`http://localhost:1337/api/auth/local`, requestOptions)
         .then(res => res.json())
-        .then(data => callback(data))
+        .then(data => {
+            loginCallBack(data)
+            fetch(`http://localhost:1337/api/utilisateurs`)
+                .then(res => res.json())
+                .then(data => utilisateurCallBack(data))
+        })
         .catch(error => console.log(error));
 }
 
@@ -51,15 +56,17 @@ function createUser(user) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(body)
+        body: JSON.stringify({ data: body })
     };
 
-    fetch(`http://localhost:1337/api/auth/local/register`, requestOptions)
+    fetch(`http://localhost:1337/api/utilisateurs`, requestOptions)
         .then(res => res.json())
         .then(res => {
-            toast.success("Inscription validée", {
-                theme: "colored"
-            });
+            if(res.data) {
+                toast.success("Inscription validée", {
+                    theme: "colored"
+                });
+            }
         })
         .catch(error => console.log(error));
 }

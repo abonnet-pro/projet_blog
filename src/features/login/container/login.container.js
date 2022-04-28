@@ -1,6 +1,6 @@
 import {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import {JWT_KEY, setLocaleStorage, USER_KEY} from "../../../services/localStorage.service";
+import {JWT_KEY, setLocaleStorage, USER_KEY, USER_SAVE_KEY} from "../../../services/localStorage.service";
 import {contextPrototype} from "../../../services/usersContext.service";
 
 import { toast } from 'react-toastify';
@@ -35,7 +35,18 @@ export default function LoginContainer() {
             }
         }
 
-        connect(user, loginCallBack);
+        const utilisateurCallBack = (utilisateurs) => {
+            if(utilisateurs.data !== null) {
+                for(let utilisateur of utilisateurs.data) {
+                    if(utilisateur.attributes.email === contextPrototype.user.email) {
+                        setLocaleStorage(USER_SAVE_KEY, utilisateur)
+                        contextPrototype.setUserSave(utilisateur);
+                    }
+                }
+            }
+        }
+
+        connect(user, loginCallBack, utilisateurCallBack);
     }
 
     return (

@@ -1,6 +1,7 @@
 import MyNavItem from "./navItem";
 import {Link} from "react-router-dom";
 import {getLocalStorage, USER_KEY} from "../../services/localStorage.service";
+import {contextPrototype} from "../../services/usersContext.service";
 
 export default function MyNavBar() {
 
@@ -9,7 +10,7 @@ export default function MyNavBar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
-                <a className="navbar-brand" href="/">Bloger</a>
+                <a className="navbar-brand" href="/">Blogger</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"/>
                 </button>
@@ -20,6 +21,10 @@ export default function MyNavBar() {
                         <MyNavItem path="/infos" itemName="A propos" isActive={ false }/>
                         <MyNavItem path="/contact" itemName="Contact" isActive={ false }/>
                     </ul>
+
+                    {
+                        user?.id ? <span>{ contextPrototype.user.username }</span> : null
+                    }
 
                     {
                         user?.id ? null : <Link to="/creation/compte" className="btn btn-outline-primary ms-2">Créer un compte</Link>

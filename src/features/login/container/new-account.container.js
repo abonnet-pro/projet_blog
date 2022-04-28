@@ -9,7 +9,7 @@ import {useNavigate} from "react-router-dom";
 export default function NewAccountContainer() {
 
     const navigate = useNavigate();
-    const [form, setForm] = useState({ email: '', username : '' ,password: '' });
+    const [form, setForm] = useState({ email: 'user2@user.fr', username : 'user2' ,password: 'User2!' });
 
     const handleSubmit = (event) => {
         event.preventDefault();
