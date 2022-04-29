@@ -12,6 +12,8 @@ import Home from "./features/home/home";
 import NewAccountContainer from "./features/login/container/new-account.container";
 import ArticleDetailContainer from "./features/article-detail/container/article-detail.container";
 import Footer from "./features/common/footer";
+import Infos from "./features/infos/infos.container";
+import Contact from "./features/contact/contact.container";
 
 function App() {
 
@@ -36,6 +38,8 @@ function App() {
                   <Route path="logout" element={ <Logout setUser={ setUser } setUserSave={ setUserSave }/> }/>
                   <Route path="/creation/compte" element={ <NewAccountContainer/> }/>
                   <Route path="/article" element={ <ArticleDetailContainer/> }/>
+                  <Route path="/infos" element={ <Infos/> }/>
+                  <Route path="/contact" element={ <Contact/> }/>
               </Routes>
 
             </main>

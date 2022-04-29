@@ -48,6 +48,11 @@ body {
   height: 80px;
 }
 
+.image-article-recent {
+  width: 40px;
+  height: 40px;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -91,4 +96,51 @@ body {
 
 .green {
   color: #1e8921;
+}
+
+.align {
+  vertical-align: text-bottom;
+}
+
+.article-recent {
+  width: 200px;
+}
+
+.articles-recent {
+  border-top: 3px solid #070707;
+  padding-top: 25px;
+  margin-top: 50px;
+}
+
+.articles-recent-title {
+  width: fit-content;
+  font-weight: bold;
+  padding: 10px 30px;
+  margin: -50px auto auto;
+  background-color: #0f2537;
+}
+
+.image-infos {
+  width: 500px;
+  height: 500px;
+  margin: 10px
+}
+
+.infos {
+  margin-left: 15%;
+}
+
+.form-contact {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.form {
+  width: 700px;
+  margin: auto;
+}
+
+.center-form {
+  margin: auto !important;
+  margin-top: 100px !important;
 }

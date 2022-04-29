@@ -38,7 +38,7 @@ export default function NewAccountContainer() {
     }
 
     return(
-        <div className="text-center card p-3 m-3 bg-light w-25">
+        <div className="center-form text-center card p-3 m-3 bg-light w-25">
             <NewAccountForm form={ form } setForm={ setForm } handleSubmit={ handleSubmit }/>
         </div>
     )

@@ -52,7 +52,6 @@ export default function ArticleDetail({ article, handleClickLike, handleClickSha
                     :
                     null
             }
-
         </div>
     )
 }
