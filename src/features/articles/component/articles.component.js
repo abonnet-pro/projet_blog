@@ -1,7 +1,7 @@
 import {API_IMAGE} from "../../../utils/url.utils";
 import {getDiffDaysByNow} from "../../../utils/date.utils";
 import {Link} from "react-router-dom";
-import {getLectureTime, isArticleLiked, isArticleShared} from "../service/articles.service";
+import {getLectureTimeDisplay, isArticleLiked, isArticleShared} from "../service/articles.service";
 import {contextPrototype} from "../../../services/usersContext.service";
 
 export default function Articles({ articles, handleClickLike, handleClickShare }) {
@@ -14,18 +14,6 @@ export default function Articles({ articles, handleClickLike, handleClickShare }
         return Math.round(diffJours) > 0 ? `Il y a ${ Math.round(diffJours) } jours` : Math.round(diffJours) === 1 ? 'Hier' : 'Aujourd\'hui';
     }
 
-    const getLectureTimeDisplay = (text) => {
-        let timeSecond = getLectureTime(text)
-        let heures = Math.floor(timeSecond / 3600);
-        let minutes = Math.floor(timeSecond % 3600 / 60);
-        let secondes = Math.floor(timeSecond % 3600 % 60);
-
-        let hDisplay = heures > 0 ? heures + (heures === 1 ? " heure, " : " heures, ") : "";
-        let mDisplay = minutes > 0 ? minutes + (minutes === 1 ? " minute, " : " minutes, ") : "";
-        let sDisplay = secondes > 0 ? secondes + (secondes === 1 ? " seconde" : " secondes") : "";
-        return hDisplay + mDisplay + sDisplay;
-    }
-
     const getArticleLiked = (article) => {
         return isArticleLiked(article) ? "red bi bi-suit-heart-fill" : "bi bi-suit-heart";
     }
@@ -33,6 +21,7 @@ export default function Articles({ articles, handleClickLike, handleClickShare }
     const getArticleShared = (article) => {
         return isArticleShared(article) ? "bi bi-share-fill" : "bi bi-share";
     }
+
     return (
         <>
             {
@@ -57,7 +46,7 @@ export default function Articles({ articles, handleClickLike, handleClickShare }
                             <div className="card-body fw-bold"><i className="bi bi-clock"/> Temps de lecture : { getLectureTimeDisplay(article?.attributes.lignes) }</div>
 
                             <div className="card-body">
-                                <p className="card-text">{ article?.attributes.lignes }</p>
+                                <p className="card-text elipsis">{ article?.attributes.lignes }</p>
                                 <Link to='/article' state={ article } className="btn btn-primary">Ouvrir l'article</Link>
                             </div>
 

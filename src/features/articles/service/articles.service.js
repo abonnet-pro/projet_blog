@@ -7,6 +7,18 @@ export const getLectureTime = (text) => {
     return mots.length * 60 / 200;
 }
 
+export const getLectureTimeDisplay = (text) => {
+    let timeSecond = getLectureTime(text)
+    let heures = Math.floor(timeSecond / 3600);
+    let minutes = Math.floor(timeSecond % 3600 / 60);
+    let secondes = Math.floor(timeSecond % 3600 % 60);
+
+    let hDisplay = heures > 0 ? heures + (heures === 1 ? " heure, " : " heures, ") : "";
+    let mDisplay = minutes > 0 ? minutes + (minutes === 1 ? " minute, " : " minutes, ") : "";
+    let sDisplay = secondes > 0 ? secondes + (secondes === 1 ? " seconde" : " secondes") : "";
+    return hDisplay + mDisplay + sDisplay;
+}
+
 export function isArticleLiked(article) {
     for(let like of article?.attributes.likes.data) {
         if(contextPrototype.user && like.attributes.username === contextPrototype.user.username) {
@@ -48,9 +60,12 @@ export function likeArticle(article, callback) {
         body: JSON.stringify({ data: { likes: likesArticle } })
     };
 
-    fetch(`http://localhost:1337/api/articles/${ article.id }`, requestOptions)
+    fetch(`http://localhost:1337/api/articles/${ article.id }?populate=*`, requestOptions)
         .then(res => res.json())
-        .then(_ => callback())
+        .then(data => {
+            console.log(data)
+            callback(data.data)
+        })
         .catch(error => console.log(error));
 }
 
@@ -76,8 +91,8 @@ export function shareArticle(article, callback) {
         body: JSON.stringify({ data: { shares: likesShare } })
     };
 
-    fetch(`http://localhost:1337/api/articles/${ article.id }`, requestOptions)
+    fetch(`http://localhost:1337/api/articles/${ article.id }?populate=*`, requestOptions)
         .then(res => res.json())
-        .then(_ => callback())
+        .then(data => callback(data.data))
         .catch(error => console.log(error));
 }

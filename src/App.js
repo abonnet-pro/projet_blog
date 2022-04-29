@@ -10,7 +10,7 @@ import LoginContainer from "./features/login/container/login.container";
 import Logout from "./features/login/container/logout.container";
 import Home from "./features/home/home";
 import NewAccountContainer from "./features/login/container/new-account.container";
-import ArticleDetailContainer from "./features/articles/container/article-detail.container";
+import ArticleDetailContainer from "./features/article-detail/container/article-detail.container";
 import Footer from "./features/common/footer";
 
 function App() {

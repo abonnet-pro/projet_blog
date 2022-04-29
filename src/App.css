@@ -65,5 +65,30 @@ body {
 }
 
 .bg-dark{
-  background-color: black;
+  background-color: #000000;
+}
+
+.elipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.comments {
+  border-top: 3px solid #070707;
+  padding-top: 25px;
+  margin-top: 50px;
+}
+
+.comment-number {
+  width: fit-content;
+  font-weight: bold;
+  padding: 10px 30px;
+  margin: -50px auto auto;
+  background-color: #0f2537;
+}
+
+.green {
+  color: #1e8921;
 }

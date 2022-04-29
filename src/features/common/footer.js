@@ -17,7 +17,7 @@ export default function Footer() {
                         <div className="row d-flex justify-content-center">
                             <div className="col-auto">
                                 <p className="pt-2">
-                                    <strong>Sign up for our newsletter</strong>
+                                    <strong>Abonnez vous à la newsletter</strong>
                                 </p>
                             </div>
                             <div className="col-md-5 col-12">
