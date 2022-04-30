@@ -31,6 +31,7 @@ export default function Articles({ articles, handleClickLike, handleClickShare }
                             <img width={700} height={270} className="articleImg" src={ API_IMAGE + article?.attributes.image.data?.attributes.url } alt="articlePicture"/>
                             <div className="previewInfo">
                                 <div className="authorInfo">
+                                    <img src={ API_IMAGE + '/uploads/user_748f99fb59.png' } alt="avatar"/>
                                     <div className="authorDescription">
                                         <span className="authorName">
                                             { article?.attributes.utilisateur.data?.attributes.username }

@@ -1,4 +1,5 @@
 import {contextPrototype} from "../../../services/usersContext.service";
+import {API_IMAGE} from "../../../utils/url.utils";
 
 export default function Commentaires({ commentaires }) {
 
@@ -27,6 +28,7 @@ export default function Commentaires({ commentaires }) {
                                                 null
                                                 :
                                                 <div className="postComments">
+                                                    <img src={ API_IMAGE + '/uploads/user_748f99fb59.png' } alt="avatar"/>
                                                     <span className="commentAuthorName">
                                                     {
                                                         commentaire?.attributes.valide ?
