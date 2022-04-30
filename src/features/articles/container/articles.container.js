@@ -5,13 +5,13 @@ import ReactPaginate from "react-paginate";
 import {ITEM_PER_PAGE, likeArticle, shareArticle} from "../service/articles.service";
 import ArticlesSort from "../component/articles-sort.component";
 import ArticlesFilter from "../component/articles-filter.component";
+import {contextPrototype} from "../../../services/usersContext.service";
 
-export default function ArticlesContainer() {
+export default function ArticlesContainer({ sort }) {
 
     const [articles, setArticles] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(1);
-    const [sort, setSort] = useState('&sort[0]=createdAt%3Adesc');
     const [filters, setFilter] = useState('');
     const [form, setForm] = useState({ search: '' });
 
@@ -33,25 +33,23 @@ export default function ArticlesContainer() {
     };
 
     const handleClickLike = (article) => {
+        if(!contextPrototype.user) {
+            return;
+        }
         likeArticle(article, callApi)
     }
 
     const handleClickShare = (article) => {
+        if(!contextPrototype.user) {
+            return;
+        }
         shareArticle(article, callApi)
     }
 
     return (
-        <div className="m-10">
-            <div className="container">
-                <div className="row">
-                    <div className="col-4 p-0">
-                        <ArticlesSort setSort={ setSort } />
-                    </div>
-
-                    <div className="col-8 p-0">
-                        <ArticlesFilter form={ form } setForm={ setForm } setFilter={ setFilter }/>
-                    </div>
-                </div>
+        <div className="postList">
+            <div className="pb-5 pt-5">
+                <ArticlesFilter form={ form } setForm={ setForm } setFilter={ setFilter }/>
             </div>
 
             <Articles articles={ articles } handleClickLike={ handleClickLike } handleClickShare={ handleClickShare }/>

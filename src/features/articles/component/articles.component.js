@@ -27,48 +27,46 @@ export default function Articles({ articles, handleClickLike, handleClickShare }
             {
                 articles.map(article => {
                     return (
-                        <div key={ article.id } className="card mt-4 mb-4" >
-
-                            <h3 className="card-header">{ article?.attributes.titre } <span className="badge rounded-pill bg-primary">{ article?.attributes.categorie.data?.attributes.titre }</span></h3>
-
-                            <div className="card-body container m-0">
-                                <div className="row">
-                                    <div className="col-1">
-                                        <img className="image-article" src={ API_IMAGE + article?.attributes.image.data?.attributes.url } alt="Image introuvable"/>
+                        <div key={ article.id } className="articleItem">
+                            <img width={700} height={270} className="articleImg" src={ API_IMAGE + article?.attributes.image.data?.attributes.url } alt="articlePicture"/>
+                            <div className="previewInfo">
+                                <div className="authorInfo">
+                                    <div className="authorDescription">
+                                        <span className="authorName">
+                                            { article?.attributes.utilisateur.data?.attributes.username }
+                                        </span>
+                                        <span className="postDate">{ new Date(article?.attributes.createdAt).toLocaleDateString('fr-FR', optionsDate) } à { new Date(article?.attributes.createdAt).toLocaleTimeString() }</span>
                                     </div>
-                                    <div className="col-11 w-auto">
-                                        <h5 className="card-title">Publié par : { article?.attributes.utilisateur.data?.attributes.username } </h5>
-                                        <h6 className="card-subtitle text-muted">{ new Date(article?.attributes.createdAt).toLocaleDateString('fr-FR', optionsDate) } à { new Date(article?.attributes.createdAt).toLocaleTimeString() }</h6>
+                                </div>
+                                <Link to={`/article`} state={ article } className={'link'}>
+                                    <div className="postInfoTitle">
+                                        <h2>{ article?.attributes.titre }</h2>
+                                        <span className="badge rounded-pill bg-secondary me-2">{ article?.attributes.categorie.data?.attributes.titre }</span>
+                                        <span className="badge rounded-pill bg-secondary">~{ getLectureTimeDisplay(article?.attributes.lignes) }</span>
                                     </div>
+                                </Link>
+                            </div>
+
+                            <div className="card bg-light m-3 p-3">
+                                <p className="elipsis m-0">{ article?.attributes.lignes }</p>
+                            </div>
+
+                            <div className="postReactions">
+                                <div className="postReactionsInfo">
+
+                                    <i data-bs-toggle="tooltip" data-bs-placement="top" title="like"
+                                                           className={ "postReactionsIcon " + getArticleLiked(article) }
+                                                           onClick={ () => handleClickLike(article) }/>
+                                    <span>{ article?.attributes.likes.data.length } Likes</span>
+                                </div>
+                                <div className="postReactionsInfo">
+                                    <i data-bs-toggle="tooltip" data-bs-placement="top" title="partage"
+                                                           className={ "postReactionsIcon " + getArticleShared(article) }
+                                                           onClick={ () => handleClickShare(article) }/>
+                                    <span>{ article?.attributes.shares.data.length } Partages</span>
                                 </div>
                             </div>
 
-                            <div className="card-body fw-bold"><i className="bi bi-clock"/> Temps de lecture : { getLectureTimeDisplay(article?.attributes.lignes) }</div>
-
-                            <div className="card-body">
-                                <p className="card-text elipsis">{ article?.attributes.lignes }</p>
-                                <Link to='/article' state={ article } className="btn btn-primary">Ouvrir l'article</Link>
-                            </div>
-
-                            {
-                                contextPrototype.user ?
-                                    <div className="card-body">
-
-                                        <i data-bs-toggle="tooltip" data-bs-placement="top" title="like"
-                                           className={ "pointer me-2 align-text-bottom " + getArticleLiked(article) }
-                                           onClick={ () => handleClickLike(article) }/>
-                                        <span className="me-4">{ article?.attributes.likes.data.length }</span>
-
-                                        <i data-bs-toggle="tooltip" data-bs-placement="top" title="partage"
-                                           className={ "pointer me-2 align-text-bottom " + getArticleShared(article) }
-                                           onClick={ () => handleClickShare(article) }/>
-                                        <span className="me-4">{ article?.attributes.shares.data.length }</span>
-                                    </div>
-                                :
-                                    null
-                            }
-
-                            <div className="card-footer text-muted">{ getDaysPosted(article?.attributes.createdAt) }</div>
                         </div>
                 )
                 })

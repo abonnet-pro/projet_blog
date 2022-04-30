@@ -1,6 +1,6 @@
 import {API_IMAGE} from "../../../utils/url.utils";
-import {getLectureTimeDisplay, isArticleLiked, isArticleShared} from "../../articles/service/articles.service";
-import {contextPrototype} from "../../../services/usersContext.service";
+import {isArticleLiked, isArticleShared} from "../../articles/service/articles.service";
+import {Link} from "react-router-dom";
 
 export default function ArticleDetail({ article, handleClickLike, handleClickShare }) {
 
@@ -15,43 +15,43 @@ export default function ArticleDetail({ article, handleClickLike, handleClickSha
     }
 
     return(
-        <div className="card mt-4 mb-4" >
-            <h3 className="card-header">{ article?.attributes.titre } <span className="badge rounded-pill bg-primary">{ article?.attributes.categorie.data?.attributes.titre }</span></h3>
-            <div className="card-body container m-0">
-                <div className="row">
-                    <div className="col-1">
-                        <img className="image-article" src={ API_IMAGE + article?.attributes.image.data?.attributes.url } alt="Image introuvable"/>
+        <div className="postWrapper">
+            <div className="postInner">
+                <Link to={'/'} className="link">
+                    <button className="back">
+                        <i className="bi bi-arrow-left"/>
+                        <span>Accueil</span>
+                    </button>
+                </Link>
+                <div className="postDescription">
+                    <img src={ API_IMAGE + article?.attributes.image.data?.attributes.url } alt="postPicture"/>
+                    <div className="postInfo">
+                        <div className="author">
+                            <div className="authorDetails">
+                                <span className="name">{ article?.attributes.utilisateur.data?.attributes.username }</span>
+                                <span className="date">{ new Date(article?.attributes.createdAt).toLocaleDateString('fr-FR', optionsDate) } à { new Date(article?.attributes.createdAt).toLocaleTimeString() }</span>
+                            </div>
+                        </div>
+                        <h1>{ article?.attributes.titre }</h1>
+                        <span className="badge rounded-pill bg-secondary me-2">{ article?.attributes.categorie.data?.attributes.titre }</span>
                     </div>
-                    <div className="col-11 w-auto">
-                        <h5 className="card-title">Publié par : { article?.attributes.utilisateur.data?.attributes.username } </h5>
-                        <h6 className="card-subtitle text-muted">{ new Date(article?.attributes.createdAt).toLocaleDateString('fr-FR', optionsDate) } à { new Date(article?.attributes.createdAt).toLocaleTimeString() }</h6>
+                    <div className="postText" dangerouslySetInnerHTML={{__html: article?.attributes.lignes.replace(/\n/g,"<br />")}}/>
+                    <div className="postActionsInfo">
+                        <div className="postLike">
+                            <i data-bs-toggle="tooltip" data-bs-placement="top" title="like"
+                               className={ "postReactionsIcon " + getArticleLiked(article) }
+                               onClick={ () => handleClickLike(article) }/>
+                            <span>{ article?.attributes.likes.data.length } Likes</span>
+                        </div>
+                        <div className={'postLike'}>
+                            <i data-bs-toggle="tooltip" data-bs-placement="top" title="partage"
+                               className={ "postReactionsIcon " + getArticleShared(article) }
+                               onClick={ () => handleClickShare(article) }/>
+                            <span>{ article?.attributes.shares.data.length } Partages</span>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div className="card-body fw-bold"><i className="bi bi-clock"/> Temps de lecture : { getLectureTimeDisplay(article?.attributes.lignes) }</div>
-
-            <div className="card-body">
-                <p className="card-text">{ article?.attributes.lignes }</p>
-            </div>
-
-            {
-                contextPrototype.user ?
-                    <div className="card-body">
-
-                        <i data-bs-toggle="tooltip" data-bs-placement="top" title="like"
-                           className={ "pointer me-2 align-text-bottom " + getArticleLiked(article) }
-                           onClick={ () => handleClickLike(article) }/>
-                        <span className="me-4">{ article?.attributes.likes.data.length }</span>
-
-                        <i data-bs-toggle="tooltip" data-bs-placement="top" title="partage"
-                           className={ "pointer me-2 align-text-bottom " + getArticleShared(article) }
-                           onClick={ () => handleClickShare(article) }/>
-                        <span className="me-4">{ article?.attributes.shares.data.length }</span>
-                    </div>
-                    :
-                    null
-            }
         </div>
     )
 }

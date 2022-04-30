@@ -15,33 +15,38 @@ export default function Commentaires({ commentaires }) {
     }
 
     return (
-        <div className="comments">
-            <div className="comment-number mb-4">{ getCommentsNumber(commentaires) } { getCommentsNumber(commentaires) ? "commentaire" : "commentaires"}</div>
-            {
-                commentaires.map(commentaire => {
-                    return (
-                        <div key={ commentaire.id }>{
-                            !commentaire?.attributes.valide && commentaire?.attributes.utilisateur.data.attributes.username !== contextPrototype.user.username ?
-                            null
-                            :
-                            <div>
-                                <p>
-                                    {
-                                        commentaire?.attributes.valide ? null : <i className="bi bi-hourglass-split me-2 text-primary align" data-toggle="tooltip" data-placement="top" title="En attente de validation"/>
-                                    }
+            <div className="comments">
+                <div className="comment-number mb-4">{ getCommentsNumber(commentaires) } { getCommentsNumber(commentaires) ? "commentaire" : "commentaires"}</div>
 
-                                    Le { new Date(commentaire?.attributes.createdAt).toLocaleDateString('fr-FR', optionsDate) } à { new Date(commentaire?.attributes.createdAt).toLocaleTimeString() }, par <b>{ commentaire?.attributes.utilisateur.data.attributes.username }</b>
-                                </p>
-
-                                <div className="card p-4 mb-5">
-                                    { commentaire?.attributes.lignes}
-                                </div>
-                            </div>
+                        {
+                            commentaires.map(commentaire => {
+                                return (
+                                    <div key={ commentaire.id }>
+                                        {
+                                            !commentaire?.attributes.valide && commentaire?.attributes.utilisateur.data.attributes.username !== contextPrototype.user?.username ?
+                                                null
+                                                :
+                                                <div className="postComments">
+                                                    <span className="commentAuthorName">
+                                                    {
+                                                        commentaire?.attributes.valide ?
+                                                            null
+                                                            :
+                                                            <i className="bi bi-hourglass-split me-2 text-primary align"
+                                                                data-toggle="tooltip" data-placement="top"
+                                                                title="En attente de validation"/>
+                                                    }
+                                                    {commentaire?.attributes.utilisateur.data.attributes.username} •
+                                                    <span className={'commentDate'}> {new Date(commentaire?.attributes.createdAt).toLocaleDateString('fr-FR', optionsDate)} à {new Date(commentaire?.attributes.createdAt).toLocaleTimeString()}</span></span>
+                                                    <div className="commentText">
+                                                        {commentaire?.attributes.lignes}
+                                                    </div>
+                                                </div>
+                                        }
+                                    </div>
+                                )
+                            })
                         }
-                        </div>
-                    )
-                })
-            }
-        </div>
+                </div>
     )
 }

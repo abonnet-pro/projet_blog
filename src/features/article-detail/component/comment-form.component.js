@@ -7,14 +7,17 @@ export default function CommentForm({ form, setForm, handleSubmitFormComment }) 
     }
 
     return (
-        <form onSubmit={ handleSubmitFormComment }>
-            <div className="form-group pb-3">
-                <textarea name="comment" className="form-control" id="comment" placeholder="Ajouter un commentaire ..." value={ form.comment } onChange={ handleChange }/>
-            </div>
-            {
-                form.comment ? <button type="submit" className="btn btn-primary">Commenter</button> : null
-            }
+        <div className="ps-3 pe-3 mt-5">
+            <form onSubmit={ handleSubmitFormComment }>
+                <div className="formGroup">
+                    <textarea name="comment" className="commentFormArea" id="comment" placeholder="Ajouter un commentaire ..." value={ form.comment } onChange={ handleChange }/>
+                </div>
+                {
+                    form.comment ? <button type="submit" className="btn btn-primary">Commenter</button> : null
+                }
 
-        </form>
+            </form>
+        </div>
+
     )
 }

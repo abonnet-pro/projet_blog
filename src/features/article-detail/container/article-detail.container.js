@@ -1,8 +1,8 @@
 import {useLocation} from "react-router";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import ArticleDetail from "../component/article-detail.component";
-import {ITEM_PER_PAGE, likeArticle, shareArticle} from "../../articles/service/articles.service";
+import {likeArticle, shareArticle} from "../../articles/service/articles.service";
 import Commentaires from "../component/comment.component";
 import {API} from "../../../utils/url.utils";
 import CommentForm from "../component/comment-form.component";
@@ -81,8 +81,7 @@ export default function ArticleDetailContainer() {
     useEffect(getRecentArticles, []);
 
     return (
-        <div className="m-10">
-            <Link className="btn btn-primary" to="/">Retour</Link>
+        <div>
             <ArticleDetail article={ article } handleClickLike={ handleClickLike } handleClickShare={ handleClickShare }/>
             <Commentaires commentaires={ comments }/>
             {

@@ -1,6 +1,6 @@
 export default function Footer() {
     return(
-        <footer className="mt-auto bg-dark text-center text-white">
+        <footer className="mt-auto bg-white text-center">
             <div className="container pb-0">
                 <section className="mb-4">
                     <i className="pointer bi bi-facebook fs-1 me-3"/>
@@ -26,7 +26,7 @@ export default function Footer() {
                                 </div>
                             </div>
                             <div className="col-auto">
-                                <button type="submit" className="btn btn-outline-light mb-4">
+                                <button type="submit" className="btn btn-primary mb-4">
                                     Subscribe
                                 </button>
                             </div>
@@ -34,7 +34,7 @@ export default function Footer() {
                     </form>
                 </section>
             </div>
-            <div className="text-center pb-3 bg-dark">
+            <div className="text-center pb-3 bg-white">
                 © 2022 Copyright:
                 <a className="pointer text-white ps-1">Blogger.com</a>
             </div>

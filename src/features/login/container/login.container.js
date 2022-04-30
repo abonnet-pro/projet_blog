@@ -50,7 +50,7 @@ export default function LoginContainer() {
     }
 
     return (
-        <div className="center-form text-center card p-3 bg-light w-25">
+        <div className="login">
             <LoginForm form={ form } setForm={ setForm } handleSubmit={ handleSubmit } />
         </div>
     )
