@@ -43,6 +43,11 @@ body {
   }
 }
 
+.content {
+  flex-basis: 55%;
+  margin: auto;
+}
+
 .image-article {
   width: 80px;
   height: 80px;
@@ -180,7 +185,7 @@ nav {
   margin-bottom: 20px;
 }
 
-.formGroup .formGroupInfo {
+.formGroupInfo {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -188,13 +193,13 @@ nav {
 }
 
 
-.formGroup .formGroupInfo label{
+.formGroupInfo label{
   font-weight: 600;
   font-size: 17px;
   margin-bottom: 5px;
 }
 
-.formGroup .formGroupInfo p{
+.formGroupInfo p{
   font-size: 12px;
   background-color: rgba(255, 0, 0, 0.18);
   padding: 3px 6px 3px 6px;
@@ -219,6 +224,12 @@ nav {
    outline: 2px solid #7451f8;
  }
 
+.formGroup textarea:focus{
+  outline: 2px solid #7451f8;
+}
+
+button:hover {opacity: 0.6}
+
 .formButton {
   width: 100%;
   border: none;
@@ -236,9 +247,6 @@ nav {
   justify-content: center;
 }
 
-.formButton:hover{
-  background-color: rgba(116, 81, 248, 0.48);
-}
 
 .sidebar {
   margin-top: 20px;
@@ -246,11 +254,11 @@ nav {
   margin-left: 20px;
 }
 
-.sidebar .menu h4 {
+.menu h4 {
   margin-bottom: 15px;
 }
 
-.sidebar .menu li {
+.menu li {
   margin-bottom: 10px;
   list-style-type: none;
   gap: 5px;
@@ -261,24 +269,24 @@ nav {
   transition: 0.1s;
 }
 
-.sidebar .menu li i {
+.menu li i {
   vertical-align: text-bottom;
   margin-right: 10px;
 }
 
-.sidebar .menu li:hover {
+.menu li:hover {
   color: #7451f8;
 }
 
-.sidebar .menu .sidebarItemOpen {
+.sidebarItemOpen {
   background-color: rgba(116, 81, 248, 0.42);
-  font-family: "Open Sans", sans-serif;
-  font-size: 16px;
+  font-family: "Verdana", sans-serif;
+  font-size: 18px;
 }
 
-.sidebar .menu .sidebarItem {
-  font-family: "Open Sans", sans-serif;
-  font-size: 16px;
+.sidebarItem {
+  font-family: "Verdana", sans-serif;
+  font-size: 18px;
 }
 
 .home {
@@ -288,6 +296,10 @@ nav {
 .link{
   text-decoration: none;
   color: inherit;
+}
+
+.navigation {
+  width: 210px;
 }
 
 .articleItem {
@@ -306,35 +318,35 @@ nav {
   object-fit: cover;
 }
 
-.articleItem .previewInfo {
+.previewInfo {
   display: flex;
   flex-direction: column;
   gap: 7px;
   padding: 20px 20px 0 20px;
 }
 
-.articleItem .previewInfo .authorInfo {
+.authorInfo {
   display: flex;
   gap: 10px;
 }
 
-.articleItem .previewInfo .authorInfo img {
+.authorInfo img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
 
-.articleItem .previewInfo .authorInfo .authorDescription {
+.authorDescription {
   display: flex;
   flex-direction: column;
 }
 
-.articleItem .previewInfo .authorInfo .authorDescription .authorName {
+.authorName {
   font-size: 14px;
   font-weight: 600;
 }
 
-.articleItem .previewInfo .authorInfo .authorDescription .postDate {
+.postDate {
   font-size: 13px;
   color: #7c7b7b;
 }
@@ -419,12 +431,9 @@ nav {
   border: 1px solid #7451f8;
   padding: 0 10px 0 10px;
   border-radius: 5px;
-  cursor: pointer;
   display: flex;
-  align-items: center;
   gap: 6px;
   font-size: 18px;
-  transition: 0.2s;
   color: #7451f8;
 }
 

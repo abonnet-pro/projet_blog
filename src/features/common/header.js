@@ -17,14 +17,11 @@ export default function MyNavBar() {
 
                 <div className="collapse navbar-collapse" id="navbarColor02">
                     <ul className="navbar-nav me-auto">
-                        {/*<MyNavItem path="/" itemName="Acceuil" isActive={ true }/>*/}
-                        {/*<MyNavItem path="/infos" itemName="A propos" isActive={ false }/>*/}
-                        {/*<MyNavItem path="/contact" itemName="Contact" isActive={ false }/>*/}
                     </ul>
 
-                    {/*{*/}
-                    {/*    user?.id ? <span>{ contextPrototype.user.username }</span> : null*/}
-                    {/*}*/}
+                    {
+                        user?.id ? <span><i className="bi bi-person-circle me-2"/>{ contextPrototype.user.username }</span> : null
+                    }
 
                     {
                         user?.id ? null : <Link to="/creation/compte" className="btn btn-outline-primary ms-2">Créer un compte</Link>

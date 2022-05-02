@@ -7,11 +7,11 @@ export default function ArticleDetail({ article, handleClickLike, handleClickSha
     const optionsDate = { weekday: 'long', month: 'long', day: 'numeric' };
 
     const getArticleLiked = (article) => {
-        return isArticleLiked(article) ? "red bi bi-suit-heart-fill" : "bi bi-suit-heart";
+        return article && isArticleLiked(article) ? "red bi bi-suit-heart-fill" : "bi bi-suit-heart";
     }
 
     const getArticleShared = (article) => {
-        return isArticleShared(article) ? "bi bi-share-fill" : "bi bi-share";
+        return article && isArticleShared(article) ? "bi bi-share-fill" : "bi bi-share";
     }
 
     return(

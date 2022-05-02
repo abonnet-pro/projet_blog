@@ -14,6 +14,10 @@ import ArticleDetailContainer from "./features/article-detail/container/article-
 import Footer from "./features/common/footer";
 import Infos from "./features/infos/infos.container";
 import Contact from "./features/contact/contact.container";
+import ProfileContainer from "./features/profile/container/profile.container";
+import ProfileArticles from "./features/profile/component/profile-articles.component";
+import ProfileAccueil from "./features/profile/component/profile-accueil.component";
+import ProfileCommentaires from "./features/profile/component/profile-commentaires.component";
 
 function App() {
 
@@ -40,6 +44,8 @@ function App() {
                   <Route path="/article" element={ <ArticleDetailContainer/> }/>
                   <Route path="/infos" element={ <Infos/> }/>
                   <Route path="/contact" element={ <Contact/> }/>
+                  <Route path="/profile/admin/*" element={ <ProfileContainer/> }/>
+                  <Route path="*" element={ <Home/> }/>
               </Routes>
 
             </main>

@@ -9,6 +9,7 @@ import CommentForm from "../component/comment-form.component";
 import {contextPrototype} from "../../../services/usersContext.service";
 import {toast} from "react-toastify";
 import ArticlesRecent from "../component/articles-recent.component";
+import {headerToken, token} from "../../../services/http.service";
 
 export default function ArticleDetailContainer() {
 
@@ -26,7 +27,11 @@ export default function ArticleDetailContainer() {
     }
 
     const getComments = () => {
-        fetch(`${API}/articles/${article?.id}?populate=commentaires.utilisateur`)
+        if(!article) {
+            return;
+        }
+
+        fetch(`${API}/articles/${article?.id}?populate=commentaires.utilisateur`, headerToken)
             .then(res => res.json())
             .then(data => setComments(data.data.attributes.commentaires.data))
             .catch(error => console.log(error))
@@ -51,7 +56,7 @@ export default function ArticleDetailContainer() {
 
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-type': 'application/json' },
+            headers: { 'Content-type': 'application/json', 'Authorization' : 'bearer ' + token() },
             body: JSON.stringify({ data: body })
         };
 
@@ -68,7 +73,7 @@ export default function ArticleDetailContainer() {
     }
 
     const getRecentArticles = () => {
-        fetch(`${API}/articles?populate=*&pagination[pageSize]=5&sort[0]=createdAt%3Adesc`)
+        fetch(`${API}/articles?populate=*&pagination[pageSize]=5&sort[0]=createdAt%3Adesc`, headerToken)
             .then(res => res.json())
             .then(data => {
                 setRecentArticles(data.data)

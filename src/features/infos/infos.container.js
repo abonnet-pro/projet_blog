@@ -32,7 +32,7 @@ export default function Infos() {
                         A écrire, mieux, plus, différement, avec votre coeur
                     </li>
                     <li className="list-group-item bg-secondary">
-                        A vous vendre. A votre véritable valeur.
+                        A vous vendre. A prouver votre véritable valeur.
                     </li>
                     <li className="list-group-item bg-secondary">
                         A être motivé. Et inspiré

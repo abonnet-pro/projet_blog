@@ -1,4 +1,5 @@
 import {contextPrototype} from "../../../services/usersContext.service";
+import {token} from "../../../services/http.service";
 
 export const ITEM_PER_PAGE = 10;
 
@@ -20,6 +21,10 @@ export const getLectureTimeDisplay = (text) => {
 }
 
 export function isArticleLiked(article) {
+    if(!article) {
+        return false;
+    }
+
     for(let like of article?.attributes.likes.data) {
         if(contextPrototype.user && like.attributes.username === contextPrototype.user.username) {
             return true;
@@ -56,7 +61,7 @@ export function likeArticle(article, callback) {
 
     const requestOptions = {
         method: 'PUT',
-        headers: { 'Content-type': 'application/json' },
+        headers: { 'Content-type': 'application/json', 'Authorization' : 'bearer ' + token() },
         body: JSON.stringify({ data: { likes: likesArticle } })
     };
 
@@ -87,7 +92,7 @@ export function shareArticle(article, callback) {
 
     const requestOptions = {
         method: 'PUT',
-        headers: { 'Content-type': 'application/json' },
+        headers: { 'Content-type': 'application/json', 'Authorization' : 'bearer ' + token() },
         body: JSON.stringify({ data: { shares: likesShare } })
     };
 

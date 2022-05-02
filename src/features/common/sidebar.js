@@ -1,35 +1,12 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
+import {contextPrototype} from "../../services/usersContext.service";
 
 export default function Sidebar({ setSort }) {
 
     const [sortDateSelect, setSortDateSelect] = useState(false);
     const [sortTitreSelect, setSortTitreSelect] = useState(false);
     const [sortAuteurSelect, setSortAuteurSelect] = useState(false);
-    //
-    // const handleSortDate = () => {
-    //     setSortDate(true);
-    //     setSortTitre(false);
-    //     setSortAuteur(false);
-    //     let sort = '&sort[1]=createdAt';
-    //     setSort(sort);
-    // }
-    //
-    // const handleSortTitre = () => {
-    //     setSortDate(false);
-    //     setSortTitre(true);
-    //     setSortAuteur(false);
-    //     let sort = '&sort[2]=titre';
-    //     setSort(sort);
-    // }
-    //
-    // const handleSortAuteur = () => {
-    //     setSortDate(false);
-    //     setSortTitre(false);
-    //     setSortAuteur(true);
-    //     let sort = '&sort[0]=utilisateur.username';
-    //     setSort(sort);
-    // }
 
     const [sortAuteurDesc, setSortAuteurDesc] = useState(true);
     const [sortDateDesc, setSortDateDesc] = useState(true);
@@ -108,24 +85,34 @@ export default function Sidebar({ setSort }) {
             <div className="menu mt-5">
                 <h4>Navigation</h4>
                 <ul>
-                    <Link to="/" className="link">
+                    <Link to="/" className="link sidebarItem">
                         <li>
                             <i className="bi bi-house"/>
-                            <span>Home</span>
+                            <span>Accueil</span>
                         </li>
                     </Link>
-                    <Link to="/infos" className="link">
+                    <Link to="/infos" className="link sidebarItem">
                         <li>
                             <i className="bi bi-info-circle"/>
                             <span>Infos</span>
                         </li>
                     </Link>
-                    <Link to="/contact" className="link">
+                    <Link to="/contact" className="link sidebarItem">
                         <li>
                             <i className="bi bi-chat-square-text"/>
                             <span>Contact</span>
                         </li>
                     </Link>
+                    {
+                        contextPrototype.userSave && contextPrototype.userSave.attributes.admin ? <Link to="/profile/admin" className="link sidebarItem">
+                            <li>
+                                <i className="bi bi-person-square"/>
+                                <span>Profile</span>
+                            </li>
+                        </Link>
+                            : null
+                    }
+
                 </ul>
             </div>
         </div>

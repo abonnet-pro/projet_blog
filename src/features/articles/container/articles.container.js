@@ -6,6 +6,8 @@ import {ITEM_PER_PAGE, likeArticle, shareArticle} from "../service/articles.serv
 import ArticlesSort from "../component/articles-sort.component";
 import ArticlesFilter from "../component/articles-filter.component";
 import {contextPrototype} from "../../../services/usersContext.service";
+import {JWT_KEY} from "../../../services/localStorage.service";
+import {headerToken, token} from "../../../services/http.service";
 
 export default function ArticlesContainer({ sort }) {
 
@@ -16,7 +18,7 @@ export default function ArticlesContainer({ sort }) {
     const [form, setForm] = useState({ search: '' });
 
     const callApi = () => {
-        fetch(`${API}/articles?populate=*&pagination[pageSize]=${ ITEM_PER_PAGE }&pagination[page]=${ itemOffset }${ sort }${ filters }`)
+        fetch(`${API}/articles?populate=*&pagination[pageSize]=${ ITEM_PER_PAGE }&pagination[page]=${ itemOffset }${ sort }${ filters }`, headerToken)
             .then(res => res.json())
             .then(data => {
                 setArticles(data.data)
