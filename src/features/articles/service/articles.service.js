@@ -16,7 +16,7 @@ export const getLectureTimeDisplay = (text) => {
 
     let hDisplay = heures > 0 ? heures + (heures === 1 ? " heure, " : " heures, ") : "";
     let mDisplay = minutes > 0 ? minutes + (minutes === 1 ? " minute, " : " minutes, ") : "";
-    let sDisplay = secondes > 0 ? secondes + (secondes === 1 ? " seconde" : " secondes") : "";
+    let sDisplay = secondes >= 0 ? secondes + (secondes <= 1 ? " seconde" : " secondes") : "";
     return hDisplay + mDisplay + sDisplay;
 }
 

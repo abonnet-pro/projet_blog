@@ -63,9 +63,7 @@ function createUser(user) {
         .then(res => res.json())
         .then(res => {
             if(res.data) {
-                toast.success("Inscription validée", {
-                    theme: "colored"
-                });
+                toast.success("Inscription validée");
             }
         })
         .catch(error => console.log(error));

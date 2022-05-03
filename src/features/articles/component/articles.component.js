@@ -2,9 +2,8 @@ import {API_IMAGE} from "../../../utils/url.utils";
 import {getDiffDaysByNow} from "../../../utils/date.utils";
 import {Link} from "react-router-dom";
 import {getLectureTimeDisplay, isArticleLiked, isArticleShared} from "../service/articles.service";
-import {contextPrototype} from "../../../services/usersContext.service";
 
-export default function Articles({ articles, handleClickLike, handleClickShare }) {
+export default function Articles({ articles, handleClickLike, handleClickShare, profileAdmin, handleDeleteArticle }) {
 
     const optionsDate = { weekday: 'long', month: 'long', day: 'numeric' };
 
@@ -43,7 +42,7 @@ export default function Articles({ articles, handleClickLike, handleClickShare }
                                     <div className="postInfoTitle">
                                         <h2>{ article?.attributes.titre }</h2>
                                         <span className="badge rounded-pill bg-secondary me-2">{ article?.attributes.categorie.data?.attributes.titre }</span>
-                                        <span className="badge rounded-pill bg-secondary">~{ getLectureTimeDisplay(article?.attributes.lignes) }</span>
+                                        <span className="badge rounded-pill bg-secondary">~ { getLectureTimeDisplay(article?.attributes.lignes) }</span>
                                     </div>
                                 </Link>
                             </div>
@@ -68,6 +67,15 @@ export default function Articles({ articles, handleClickLike, handleClickShare }
                                 </div>
                             </div>
 
+                            {
+                                profileAdmin ?
+                                    <div className="d-inline-flex m-3">
+                                        <Link to="/profile/admin/articles/new" state={ article } className="editButton me-3 link">Modifier</Link>
+                                        <button className="deleteButton" onClick={ () => handleDeleteArticle(article.id) }>Supprimer</button>
+                                    </div>
+                                    :
+                                    null
+                            }
                         </div>
                 )
                 })

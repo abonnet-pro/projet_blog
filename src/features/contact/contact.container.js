@@ -18,9 +18,7 @@ export default function Contact() {
 
         setForm(initialForm);
 
-        toast.success("Message envoyé. Une réponse vous sera fourni dans les meilleurs delais", {
-            theme: "colored"
-        });
+        toast.success("Message envoyé. Une réponse vous sera fourni dans les meilleurs delais");
     }
 
     return(

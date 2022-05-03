@@ -3,13 +3,13 @@ import {useEffect, useState} from "react";
 import {API} from "../../../utils/url.utils";
 import ReactPaginate from "react-paginate";
 import {ITEM_PER_PAGE, likeArticle, shareArticle} from "../service/articles.service";
-import ArticlesSort from "../component/articles-sort.component";
 import ArticlesFilter from "../component/articles-filter.component";
 import {contextPrototype} from "../../../services/usersContext.service";
-import {JWT_KEY} from "../../../services/localStorage.service";
 import {headerToken, token} from "../../../services/http.service";
+import {Link} from "react-router-dom";
+import {toast} from "react-toastify";
 
-export default function ArticlesContainer({ sort }) {
+export default function ArticlesContainer({ sort, profileAdmin }) {
 
     const [articles, setArticles] = useState([]);
     const [pageCount, setPageCount] = useState(0);
@@ -48,13 +48,45 @@ export default function ArticlesContainer({ sort }) {
         shareArticle(article, callApi)
     }
 
+    const handleDeleteArticle = (articleId) => {
+        const requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-type': 'application/json', 'Authorization' : 'bearer ' + token() },
+        };
+
+        fetch(`http://localhost:1337/api/articles/${articleId}`, requestOptions)
+            .then(res => res.json())
+            .then(data => {
+                if(data.data) {
+                    toast.success("Article supprimé")
+
+                    let articlesCopied = [...articles].filter(article => article.id !== articleId);
+                    setArticles(articlesCopied);
+
+                } else {
+                    toast.error("Erreur : L'article n'a pas été supprimé", {
+                        theme: "colored"
+                    })
+                }
+            })
+            .catch(error => console.log(error));
+    }
+
     return (
         <div className="postList">
+
+            {
+                profileAdmin ?
+                    <Link to="/profile/admin/articles/new" state={ null } className="editButton link mt-4 w-25">Ajouter un article</Link>
+                    :
+                    null
+            }
+
             <div className="pb-5 pt-5">
                 <ArticlesFilter form={ form } setForm={ setForm } setFilter={ setFilter }/>
             </div>
 
-            <Articles articles={ articles } handleClickLike={ handleClickLike } handleClickShare={ handleClickShare }/>
+            <Articles articles={ articles } profileAdmin={ profileAdmin } handleClickLike={ handleClickLike } handleClickShare={ handleClickShare } handleDeleteArticle={ handleDeleteArticle }/>
 
             <ReactPaginate
                 breakClassName={'page-item'}

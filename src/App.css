@@ -175,7 +175,14 @@ nav {
   text-align: center;
   font-weight: bold;
 }
-.login .loginForm {
+
+.formTitle {
+  font-size: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.loginForm {
   margin-top: 30px;
 }
 
@@ -220,6 +227,12 @@ nav {
   border: 1px solid lightgray;
 }
 
+.formGroup select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+}
+
 .formGroup input:focus{
    outline: 2px solid #7451f8;
  }
@@ -228,7 +241,19 @@ nav {
   outline: 2px solid #7451f8;
 }
 
-button:hover {opacity: 0.6}
+.formGroup select:focus{
+  outline: 2px solid #7451f8;
+}
+
+button:hover {
+  opacity: 0.6
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: default !important;
+  pointer-events: none !important;
+}
 
 .formButton {
   width: 100%;
@@ -297,6 +322,12 @@ button:hover {opacity: 0.6}
   text-decoration: none;
   color: inherit;
 }
+
+.link:hover{
+  opacity: 0.6;
+  color: white;
+}
+
 
 .navigation {
   width: 210px;
@@ -614,5 +645,49 @@ button:hover {opacity: 0.6}
 }
 
 .latestLink h5:hover {
+  color: #7451f8;
+}
+
+.editButton {
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #7451f8;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+}
+
+.deleteButton {
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #b33131;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+}
+
+.addArticle {
+  width: fit-content;
+  margin: 20px 0 0 0;
+  border: 1px solid #7451f8;
+  padding: 0 10px 0 10px;
+  border-radius: 5px;
+  display: flex;
+  gap: 6px;
+  font-size: 18px;
   color: #7451f8;
 }

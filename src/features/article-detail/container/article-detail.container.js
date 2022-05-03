@@ -63,9 +63,7 @@ export default function ArticleDetailContainer() {
         fetch(`http://localhost:1337/api/commentaires`, requestOptions)
             .then(res => res.json())
             .then(data => {
-                toast.success("Commentaire envoyé, en attente de validation", {
-                    theme: "colored"
-                });
+                toast.success("Commentaire envoyé, en attente de validation");
                 setForm({comment: ''})
                 getComments()
             })
