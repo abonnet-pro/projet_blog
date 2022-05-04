@@ -2,6 +2,7 @@ import {contextPrototype} from "../../../services/usersContext.service";
 import {token} from "../../../services/http.service";
 
 export const ITEM_PER_PAGE = 10;
+export const ITEM_PER_PAGE_COMMENT = 5;
 
 export const getLectureTime = (text) => {
     let mots = text.split(' ');

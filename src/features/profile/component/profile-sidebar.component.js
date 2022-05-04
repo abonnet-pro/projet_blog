@@ -1,11 +1,8 @@
 import {Link} from "react-router-dom";
 import {useState} from "react";
 
-export default function ProfileSidebar({ setSort }) {
-
-    const [accueil, setAccueil] = useState(false);
-    const [articles, setArticles] = useState(false);
-    const [commentaires, setCommentaires] = useState(false);
+export default function ProfileSidebar(
+    { setFilter, setSort, accueilSelected, setAccueilSelected, articlesSelected, setArticlesSelected, commentairesSelected, setCommentairesSelected, sortAttenteSelect, setSortAttenteSelect, sortInvalideSelect, setSortInvalideSelect, sortValideSelect, setSortValideSelect }) {
 
     const [sortAuteurDesc, setSortAuteurDesc] = useState(true);
     const [sortDateDesc, setSortDateDesc] = useState(true);
@@ -54,30 +51,78 @@ export default function ProfileSidebar({ setSort }) {
         setSort(sort);
     }
 
+    const sortAttente = () => {
+        setSortAttenteSelect(!sortAttenteSelect);
+        setSortValideSelect(false);
+        setSortInvalideSelect(false);
+
+        let filter = sortAttenteSelect ? '' : '&filters[commentaires][attente][$eq]=true';
+        setFilter(filter);
+    }
+
+    const sortValide = () => {
+        setSortAttenteSelect(false);
+        setSortValideSelect(!sortValideSelect);
+        setSortInvalideSelect(false);
+
+        let filter = sortValideSelect ? '' : '&filters[commentaires][valide][$eq]=true';
+        setFilter(filter);
+    }
+
+    const sortInvalide = () => {
+        setSortAttenteSelect(false);
+        setSortValideSelect(false);
+        setSortInvalideSelect(!sortInvalideSelect);
+
+        let filter = sortInvalideSelect ? '' :'&filters[$and][0][commentaires][valide][$eq]=false&filters[$and][1][commentaires][attente][$eq]=false';
+        setFilter(filter);
+    }
 
     const handleAccueil = () => {
-        setAccueil(true);
-        setArticles(false);
-        setCommentaires(false);
+        setAccueilSelected(true);
+        setArticlesSelected(false);
+        setCommentairesSelected(false);
     }
 
     const handleArticles = () => {
-        setAccueil(false);
-        setArticles(true);
-        setCommentaires(false);
+        setAccueilSelected(false);
+        setArticlesSelected(true);
+        setCommentairesSelected(false);
     }
 
     const handleCommentaires = () => {
-        setAccueil(false);
-        setArticles(false);
-        setCommentaires(true);
+        setAccueilSelected(false);
+        setArticlesSelected(false);
+        setCommentairesSelected(true);
     }
 
     return(
         <div className="sidebar">
 
             {
-                articles ?
+                commentairesSelected ?
+                    <div className="menu">
+
+                        <h4>Filtrer par</h4>
+                        <ul>
+                            <li className={ sortAttenteSelect ? "sidebarItemOpen" : "sidebarItem" } onClick={ sortAttente }>
+                                <i className="bi bi-hourglass-split"/>
+                                <span>En attente</span>
+                            </li>
+                            <li  className={ sortValideSelect ? "sidebarItemOpen" : "sidebarItem" } onClick={ sortValide }>
+                                <i className="bi bi-check-circle"/>
+                                <span>Valide</span>
+                            </li>
+                            <li className={ sortInvalideSelect ? "sidebarItemOpen" : "sidebarItem" } onClick={ sortInvalide }>
+                                <i className="bi bi-x-circle"/>
+                                <span>Invalide</span>
+                            </li>
+                        </ul>
+                    </div>
+                    : null
+            }
+            {
+                articlesSelected ?
                 <div className="menu">
 
                     <h4>Trier par</h4>
@@ -112,19 +157,19 @@ export default function ProfileSidebar({ setSort }) {
                 <h4>Navigation</h4>
                 <ul className="navigation">
                     <Link to="/profile/admin" className="link sidebarItem">
-                        <li className={ accueil ? "sidebarItemOpen" : ""} onClick={ handleAccueil }>
+                        <li className={ accueilSelected ? "sidebarItemOpen" : ""} onClick={ handleAccueil }>
                             <i className="bi bi-house"/>
                             <span>Accueil</span>
                         </li>
                     </Link>
                     <Link to="/profile/admin/articles" className="link sidebarItem">
-                        <li className={ articles ? "sidebarItemOpen" : ""} onClick={ handleArticles }>
+                        <li className={ articlesSelected ? "sidebarItemOpen" : ""} onClick={ handleArticles }>
                             <i className="bi bi-list"/>
                             <span>Articles</span>
                         </li>
                     </Link>
                     <Link to="/profile/admin/commentaires" className="link sidebarItem">
-                        <li className={ commentaires ? "sidebarItemOpen" : ""} onClick={ handleCommentaires }>
+                        <li className={ commentairesSelected ? "sidebarItemOpen" : ""} onClick={ handleCommentaires }>
                             <i className="bi bi-chat-square-text"/>
                             <span>Commentaires</span>
                         </li>

@@ -15,6 +15,8 @@ export default function Commentaires({ commentaires }) {
         return commentsValide;
     }
 
+    console.log(commentaires)
+
     return (
             <div className="comments">
                 <div className="comment-number mb-4">{ getCommentsNumber(commentaires) } { getCommentsNumber(commentaires) ? "commentaire" : "commentaires"}</div>
@@ -24,19 +26,17 @@ export default function Commentaires({ commentaires }) {
                                 return (
                                     <div key={ commentaire.id }>
                                         {
-                                            !commentaire?.attributes.valide && commentaire?.attributes.utilisateur.data.attributes.username !== contextPrototype.user?.username ?
-                                                null
-                                                :
+                                            commentaire.attributes.valide || (commentaire?.attributes.utilisateur.data.attributes.username === contextPrototype.user?.username && commentaire.attributes.attente) ?
                                                 <div className="postComments">
                                                     <img src={ API_IMAGE + '/uploads/user_748f99fb59.png' } alt="avatar"/>
                                                     <span className="commentAuthorName">
                                                     {
-                                                        commentaire?.attributes.valide ?
-                                                            null
-                                                            :
+                                                        commentaire?.attributes.attente ?
                                                             <i className="bi bi-hourglass-split me-2 text-primary align"
-                                                                data-toggle="tooltip" data-placement="top"
-                                                                title="En attente de validation"/>
+                                                               data-toggle="tooltip" data-placement="top"
+                                                               title="En attente de validation"/>
+                                                            :
+                                                            null
                                                     }
                                                     {commentaire?.attributes.utilisateur.data.attributes.username} •
                                                     <span className={'commentDate'}> {new Date(commentaire?.attributes.createdAt).toLocaleDateString('fr-FR', optionsDate)} à {new Date(commentaire?.attributes.createdAt).toLocaleTimeString()}</span></span>
@@ -44,6 +44,7 @@ export default function Commentaires({ commentaires }) {
                                                         {commentaire?.attributes.lignes}
                                                     </div>
                                                 </div>
+                                                : null
                                         }
                                     </div>
                                 )

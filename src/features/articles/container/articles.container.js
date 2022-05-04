@@ -16,6 +16,7 @@ export default function ArticlesContainer({ sort, profileAdmin }) {
     const [itemOffset, setItemOffset] = useState(1);
     const [filters, setFilter] = useState('');
     const [form, setForm] = useState({ search: '' });
+    const [articlesChecked, setArticlsChecked] = useState([]);
 
     const callApi = () => {
         fetch(`${API}/articles?populate=*&pagination[pageSize]=${ ITEM_PER_PAGE }&pagination[page]=${ itemOffset }${ sort }${ filters }`, headerToken)
@@ -72,21 +73,65 @@ export default function ArticlesContainer({ sort, profileAdmin }) {
             .catch(error => console.log(error));
     }
 
+    const handleCheckArticles = (articlesId) => {
+        if(articlesChecked.indexOf(articlesId) === -1) {
+            setArticlsChecked([...articlesChecked, articlesId]);
+        } else {
+            let articlesCheckedCopied = [...articlesChecked].filter(id => id !== articlesId);
+            setArticlsChecked(articlesCheckedCopied);
+        }
+    }
+
+    const deleteArticlesChecked = async () => {
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token()},
+        };
+
+        for (let articleId of articlesChecked) {
+            const res = await fetch(`http://localhost:1337/api/articles/${articleId}`, requestOptions);
+            const data = await res.json();
+            if (data) {
+                toast.success("Article supprimé")
+            } else {
+                toast.error("Erreur : L'article n'a pas été supprimé", {
+                    theme: "colored"
+                })
+            }
+        }
+
+        callApi();
+        setArticlsChecked([]);
+    }
+
     return (
         <div className="postList">
 
-            {
-                profileAdmin ?
-                    <Link to="/profile/admin/articles/new" state={ null } className="editButton link mt-4 w-25">Ajouter un article</Link>
-                    :
-                    null
-            }
+            <div className="d-inline-flex w-100">
+                {
+                    profileAdmin ?
+                        <Link to="/profile/admin/articles/new" state={ null } className="editButton link mt-4 w-25">Ajouter un article</Link>
+                        :
+                        null
+                }
+                {
+                    profileAdmin && articlesChecked.length > 0 ? <button data-toggle="modal" data-target="#exampleModal" className="deleteButton mt-4 ms-4" onClick={ deleteArticlesChecked }>Supprimer ({ articlesChecked.length })</button>
+                        : null
+                }
+            </div>
 
             <div className="pb-5 pt-5">
                 <ArticlesFilter form={ form } setForm={ setForm } setFilter={ setFilter }/>
             </div>
 
-            <Articles articles={ articles } profileAdmin={ profileAdmin } handleClickLike={ handleClickLike } handleClickShare={ handleClickShare } handleDeleteArticle={ handleDeleteArticle }/>
+            <Articles
+                articles={ articles }
+                profileAdmin={ profileAdmin }
+                articlesChecked={ articlesChecked }
+                handleClickLike={ handleClickLike }
+                handleClickShare={ handleClickShare }
+                handleDeleteArticle={ handleDeleteArticle }
+                handleCheckArticles={ handleCheckArticles }/>
 
             <ReactPaginate
                 breakClassName={'page-item'}

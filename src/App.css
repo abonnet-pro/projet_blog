@@ -680,6 +680,22 @@ button:hover {
   justify-content: center;
 }
 
+.commentButton {
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #3137b3;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+}
+
 .addArticle {
   width: fit-content;
   margin: 20px 0 0 0;
@@ -690,4 +706,36 @@ button:hover {
   gap: 6px;
   font-size: 18px;
   color: #7451f8;
+}
+
+.checkDelete {
+  position: absolute;
+  margin: 10px;
+}
+
+.comment-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.attente {
+  background-color: #d9f1ff;
+}
+
+.valide {
+  background-color: #e1ffe0;
+}
+
+.invalide {
+  background-color: #fcdbdb;
+}
+
+.legende {
+  width: 25px;
+  height: 25px;
+}
+
+.btn-check:hover {
+  background-color: #fcdbdb;
+  color: #0a435a;
 }
