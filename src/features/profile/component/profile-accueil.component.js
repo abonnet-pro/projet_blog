@@ -1,13 +1,14 @@
 import {useEffect} from "react";
 import Articles from "../../articles/component/articles.component";
 
-export default function ProfileAccueil({ articles, setAccueilSelected }) {
+export default function ProfileAccueil({ accueilSelected, callApi, articles, setAccueilSelected }) {
 
     const init = () => {
         setAccueilSelected(true);
+        callApi()
     }
 
-    useEffect(init, []);
+    useEffect(init, [accueilSelected]);
 
     return(
         <div>

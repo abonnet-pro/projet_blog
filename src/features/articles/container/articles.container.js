@@ -19,7 +19,7 @@ export default function ArticlesContainer({ sort, profileAdmin }) {
     const [articlesChecked, setArticlsChecked] = useState([]);
 
     const callApi = () => {
-        fetch(`${API}/articles?populate=*&pagination[pageSize]=${ ITEM_PER_PAGE }&pagination[page]=${ itemOffset }${ sort }${ filters }`, headerToken)
+        fetch(`${API}/articles?populate=*&pagination[pageSize]=${ ITEM_PER_PAGE }&pagination[page]=${ itemOffset }${ sort }${ filters }&filters[visible][$eq]=true`, headerToken)
             .then(res => res.json())
             .then(data => {
                 setArticles(data.data)

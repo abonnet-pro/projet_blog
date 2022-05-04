@@ -28,10 +28,14 @@ export default function ProfileArticlesFormAdd({ loading, categories, form, setF
 
     const checkEdit = () => {
         if(state) {
-            setForm({ titre: state.attributes.titre, image: state.attributes.image.data.id, lignes: state.attributes.lignes, categorie: state.attributes.categorie.data.id, imagePath: state.attributes.image.data.attributes.url })
+            setForm({ visible: state.attributes.visible ,titre: state.attributes.titre, image: state.attributes.image.data.id, lignes: state.attributes.lignes, categorie: state.attributes.categorie.data.id, imagePath: state.attributes.image.data.attributes.url })
         } else {
-            setForm({ titre: '', image: '', lignes: '', categorie: categories[0].id })
+            setForm({ titre: '', image: '', lignes: '', categorie: categories[0].id, visible: true })
         }
+    }
+
+    const handleChangeSwitch = (event) => {
+        setForm({ ...form, visible: event.target.checked })
     }
 
     useEffect(checkEdit, []);
@@ -41,6 +45,16 @@ export default function ProfileArticlesFormAdd({ loading, categories, form, setF
             <h2 className="formTitle mb-4">{ state ? 'Modifier l\'article' : 'Ajouter un article' }</h2>
             <div className="loginForm">
                 <form onSubmit={ handleSubmit }>
+                    <div className="formGroup">
+                        <div className="formGroupInfo">
+                            <label htmlFor="titre">Visibilité</label>
+                        </div>
+                        <div className="form-check form-switch">
+                            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onChange={ handleChangeSwitch } defaultChecked={ form.visible }/>
+                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Visible</label>
+                        </div>
+                    </div>
+
                     <div className="formGroup">
                         <div className="formGroupInfo">
                             <label htmlFor="titre">Titre de l'article</label>

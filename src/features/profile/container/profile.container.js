@@ -10,11 +10,10 @@ import {API} from "../../../utils/url.utils";
 import {headerToken, token} from "../../../services/http.service";
 import {toast} from "react-toastify";
 import axios from "axios";
-import {ITEM_PER_PAGE_COMMENT} from "../../articles/service/articles.service";
 
 export default function ProfileContainer() {
 
-    const initForm = { titre: '', image: '', lignes: '', categorie: null, imagePath: '' };
+    const initForm = { titre: '', image: '', lignes: '', categorie: null, imagePath: '', visible: true };
     const navigate = useNavigate();
     const [sort, setSort] = useState('&sort[0]=createdAt%3Adesc');
     const [formAddArticle, setFormAddArticle] = useState(initForm);
@@ -50,7 +49,7 @@ export default function ProfileContainer() {
     }
 
     const callApi = () => {
-        fetch(`${API}/articles?populate=*${filters}`, headerToken)
+        fetch(`${API}/articles?populate=*${filters}&filters[visible][$eq]=true&sort[0]=createdAt%3Adesc`, headerToken)
             .then(res => res.json())
             .then(data => {
                 setArticles(data.data)
@@ -70,7 +69,8 @@ export default function ProfileContainer() {
             utilisateur: contextPrototype.userSave.id,
             lignes: formAddArticle.lignes,
             categorie: formAddArticle.categorie,
-            image: formAddArticle.image
+            image: formAddArticle.image,
+            visible: formAddArticle.visible
         }
 
         const requestOptions = {
@@ -101,7 +101,8 @@ export default function ProfileContainer() {
             titre: formAddArticle.titre,
             lignes: formAddArticle.lignes,
             categorie: formAddArticle.categorie,
-            image: formAddArticle.image
+            image: formAddArticle.image,
+            visible: formAddArticle.visible
         }
 
         const requestOptions = {
@@ -239,7 +240,9 @@ export default function ProfileContainer() {
                 <Routes>
                     <Route path="" element={
                         <ProfileAccueil
+                            callApi={ callApi }
                             articles={ articles }
+                            accueilSelected={ accueilSelected }
                             setAccueilSelected={ setAccueilSelected }/>
                     }/>
                     <Route path="articles" element={

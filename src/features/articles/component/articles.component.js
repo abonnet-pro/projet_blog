@@ -73,7 +73,7 @@ export default function Articles({ articles, handleClickLike, handleClickShare, 
                             }
 
                             {
-                                accueilAdmin ? null :
+                                accueilAdmin || profileAdmin ? null :
                                     <div className="postReactions">
                                         <div className="postReactionsInfo">
 

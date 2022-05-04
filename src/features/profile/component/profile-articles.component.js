@@ -11,7 +11,7 @@ export default function ProfileArticles({ sort, setArticlesSelected }) {
 
     return(
         <div>
-            <ArticlesContainer sort={ sort } profileAdmin={ true }/>
+            <ArticlesContainer sort={ sort } profileAdmin={ true } accueilAdmin={ true }/>
         </div>
     )
 }
