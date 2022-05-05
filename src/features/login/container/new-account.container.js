@@ -1,15 +1,13 @@
 import NewAccountForm from "../component/new-account-form.component";
 import {useState} from "react";
 import {createAccount} from "../service/login.service";
-import {JWT_KEY, setLocaleStorage, USER_KEY} from "../../../services/localStorage.service";
-import {contextPrototype} from "../../../services/usersContext.service";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 
 export default function NewAccountContainer() {
 
     const navigate = useNavigate();
-    const [form, setForm] = useState({ email: 'user2@user.fr', username : 'user2' ,password: 'User2!' });
+    const [form, setForm] = useState({ email: '', username : '' ,password: '' });
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -22,11 +20,7 @@ export default function NewAccountContainer() {
 
         const loginCallBack = (data) => {
             if(data.data !== null) {
-                localStorage.clear();
-                setLocaleStorage(JWT_KEY, data.jwt);
-                setLocaleStorage(USER_KEY, data.user)
-                contextPrototype.setUser(data.user);
-                navigate('/');
+                navigate('/login');
             } else {
                 toast.error("Inscription impossible", {
                     theme: "colored"

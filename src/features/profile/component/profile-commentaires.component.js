@@ -91,9 +91,9 @@ export default function ProfileCommentaires({ setFilter, articles, handleChangeS
                                                     <img src={ API_IMAGE + '/uploads/user_748f99fb59.png' } alt="avatar"/>
                                                     <div>
                                                 <span className="commentAuthorName">
-                                                {article.attributes.utilisateur.data.attributes.username} •
+                                                { commentaire.attributes.username } •
                                             <span className={'commentDate'}> {new Date(commentaire?.attributes.createdAt).toLocaleDateString('fr-FR', optionsDate)} à {new Date(commentaire?.attributes.createdAt).toLocaleTimeString()}</span></span>
-                                                        <div className="commentAuthorName">{ article.attributes.utilisateur.data.attributes.email }</div>
+                                                        <div className="commentAuthorName">{ commentaire.attributes.email }</div>
                                                     </div>
                                                 </div>
                                                 <div className="commentText">

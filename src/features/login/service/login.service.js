@@ -63,7 +63,7 @@ function createUser(user) {
         .then(res => res.json())
         .then(res => {
             if(res.data) {
-                toast.success("Inscription validée");
+                toast.success("Inscription validé, veuillez vous connecter");
             }
         })
         .catch(error => console.log(error));

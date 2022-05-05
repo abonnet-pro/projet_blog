@@ -24,7 +24,7 @@ export default function ArticleDetail({ article, handleClickLike, handleClickSha
                     </button>
                 </Link>
                 <div className="postDescription">
-                    <img src={ API_IMAGE + article?.attributes.image.data?.attributes.url } alt="postPicture"/>
+                    <img className="imgArticle" src={ API_IMAGE + article?.attributes.image.data?.attributes.url } alt="postPicture"/>
                     <div className="postInfo">
                         <div className="author">
                             <img src={ API_IMAGE + '/uploads/user_748f99fb59.png' } alt="avatar"/>

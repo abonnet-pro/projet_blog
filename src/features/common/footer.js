@@ -1,13 +1,22 @@
+import {useNavigate} from "react-router-dom";
+
 export default function Footer() {
+
+    const navigate = useNavigate();
+
+    const redirect = () => {
+        navigate('/')
+    }
+
     return(
         <footer className="mt-auto bg-white text-center">
             <div className="container pb-0">
                 <section className="mb-4">
-                    <i className="pointer bi bi-facebook fs-1 me-3"/>
-                    <i className="pointer bi bi-twitter fs-1 me-3"/>
-                    <i className="pointer bi bi-instagram fs-1 me-3"/>
-                    <i className="pointer bi bi-linkedin fs-1 me-3"/>
-                    <i className="pointer bi bi-github fs-1 me-3"/>
+                    <i className="pointer bi bi-facebook fs-1 me-3" onClick={ redirect }/>
+                    <i className="pointer bi bi-twitter fs-1 me-3" onClick={ redirect }/>
+                    <i className="pointer bi bi-instagram fs-1 me-3" onClick={ redirect }/>
+                    <i className="pointer bi bi-linkedin fs-1 me-3" onClick={ redirect }/>
+                    <i className="pointer bi bi-github fs-1 me-3" onClick={ redirect }/>
                 </section>
             </div>
 

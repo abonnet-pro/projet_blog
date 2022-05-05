@@ -48,10 +48,27 @@ export default function ProfileContainer() {
             .catch(error => console.log(error))
     }
 
+    function fillComments(data) {
+        for(let article of data) {
+            if(article.attributes.commentaires.data.length > 0) {
+                for(let commentaire of article.attributes.commentaires.data) {
+                    fetch(`${API}/commentaires/${ commentaire.id }?populate=*`, headerToken)
+                        .then(res => res.json())
+                        .then(data2 => {
+                            commentaire.attributes.username = data2.data.attributes.utilisateur.data.attributes.username
+                            commentaire.attributes.email = data2.data.attributes.utilisateur.data.attributes.email
+                        })
+                        .catch(error => console.log(error))
+                }
+            }
+        }
+    }
+
     const callApi = () => {
         fetch(`${API}/articles?populate=*${filters}&filters[visible][$eq]=true&sort[0]=createdAt%3Adesc`, headerToken)
             .then(res => res.json())
             .then(data => {
+                fillComments(data.data);
                 setArticles(data.data)
             })
             .catch(error => console.log(error))

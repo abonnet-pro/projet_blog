@@ -781,3 +781,19 @@ button:hover {
   transform: scale(1.5);
   background-color: white;
 }
+
+.imgArticle {
+  width: inherit;
+}
+
+.noPuce {
+  list-style-type: none;
+}
+
+.check {
+  color: #1e8921;
+}
+
+.wrong {
+  color: red;
+}

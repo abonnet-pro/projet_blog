@@ -11,7 +11,7 @@ import {connect} from "../service/login.service";
 export default function LoginContainer() {
 
     const navigate = useNavigate();
-    const [form, setForm] = useState({ email: 'admin@admin.fr', password: 'Admin!' });
+    const [form, setForm] = useState({ email: '', password: '' });
 
     const handleSubmit = (event) => {
         event.preventDefault();
