@@ -26,7 +26,7 @@ export default function Commentaires({ commentaires }) {
                                 return (
                                     <div key={ commentaire.id }>
                                         {
-                                            commentaire.attributes.valide || (commentaire?.attributes.utilisateur.data.attributes.username === contextPrototype.user?.username && commentaire.attributes.attente) ?
+                                            commentaire.attributes.valide || (commentaire?.attributes.utilisateur.data.attributes.username === contextPrototype.user?.username && commentaire.attributes.attente) || contextPrototype.userSave?.attributes?.admin ?
                                                 <div className="postComments">
                                                     <img src={ API_IMAGE + '/uploads/user_748f99fb59.png' } alt="avatar"/>
                                                     <span className="commentAuthorName">
