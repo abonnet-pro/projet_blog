@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {API, API_IMAGE} from "../../../utils/url.utils";
 import {headerToken} from "../../../services/http.service";
 
-export default function ProfileArticlesFormAdd({ loading, categories, form, setForm, handleSubmitAddArticle, setFiles, uploadImg, handleSubmitEditArticle }) {
+export default function ProfileArticlesFormAdd({ setLoading, loading, categories, form, setForm, handleSubmitAddArticle, setFiles, uploadImg, handleSubmitEditArticle }) {
 
     const { state }  = useLocation();
     const [openImgChooser, setOpenImgChooser] = useState(false);
@@ -31,9 +31,9 @@ export default function ProfileArticlesFormAdd({ loading, categories, form, setF
 
     const checkEdit = () => {
         if(state) {
-            setForm({ visible: state.attributes.visible ,titre: state.attributes.titre, image: state.attributes.image.data.id, lignes: state.attributes.lignes, categorie: state.attributes.categorie.data.id, imagePath: state.attributes.image.data.attributes.url })
+            setForm({ visible: state?.attributes.visible ,titre: state?.attributes.titre, image: state?.attributes.image.data.id, lignes: state.attributes.lignes, categorie: state?.attributes.categorie.data.id, imagePath: state?.attributes.image.data.attributes.url })
         } else {
-            setForm({ titre: '', image: '', lignes: '', categorie: categories[0].id, visible: true })
+            setForm({ titre: '', image: '', lignes: '', categorie: categories[0]?.id, visible: true })
         }
     }
 
@@ -109,7 +109,10 @@ export default function ProfileArticlesFormAdd({ loading, categories, form, setF
                         </div>
                         <div className="d-inline-flex">
                             <input className="form-control" type="file" name="image" id="image" onChange={ handleChangeFile }/>
-                            <button className={ "formButton w-25 ms-2 " + (loading ? "disabled" : "")} type="button" onClick={ uploadImg }>
+                            <button className={ "formButton w-25 ms-2 " + (loading ? "disabled" : "")} type="button" onClick={ () => {
+                                setLoading(true)
+                                uploadImg()
+                            } }>
                                 {
                                     loading ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"/> : 'Upload'
                                 }

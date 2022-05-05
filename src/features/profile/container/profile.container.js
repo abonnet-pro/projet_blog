@@ -148,7 +148,6 @@ export default function ProfileContainer() {
             return;
         }
 
-        setLoading(true);
         const formData = new FormData()
         formData.append('files', files[0])
 
@@ -162,14 +161,13 @@ export default function ProfileContainer() {
                 if(res.data && res.data.length > 0) {
                     setFormAddArticle({ ...formAddArticle, image: res.data[0].id, imagePath: res.data[0].url} )
                     toast.success("Image chargé !")
+                    setLoading(false)
                 } else {
                     toast.error("Impossible de chargé l'image", {theme: "colored"})
                 }
             }).catch((error) => {
             console.log(error)
         })
-
-        setLoading(false)
     }
 
     const handleChangeStatus = (commentaire, valide) => {
@@ -271,6 +269,7 @@ export default function ProfileContainer() {
                     }/>
                     <Route path="articles/new" element={
                         <ProfileArticlesFormAdd
+                            setLoading={ setLoading }
                             loading={ loading }
                             setFiles={ setFiles }
                             uploadImg={ uploadImg }
