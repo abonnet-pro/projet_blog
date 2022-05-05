@@ -24,10 +24,11 @@ export default function Articles({ articles, handleClickLike, handleClickShare, 
     const getNumberCommentAttente = (article) => {
         let number = 0;
         for(let comment of article.attributes.commentaires.data) {
-            if(!comment.attributes.valide) {
+            if(!comment.attributes.valide && comment.attributes.attente) {
                 number++;
             }
         }
+
         return number;
     }
 
@@ -36,7 +37,9 @@ export default function Articles({ articles, handleClickLike, handleClickShare, 
             {
                 articles.length === 0 ? <div className="text-center text-primary">Aucun resultat</div> :
                 articles.map(article => {
+
                     return (
+                        profileAdmin || article.attributes.visible && !profileAdmin  ?
                         <div key={ article.id } className="articleItem">
                             {
                                 profileAdmin ? <input className="form-check-input checkDelete pointer" type="checkbox" value="" id="flexCheckDefault" onChange={ () => handleCheckArticles(article.id) }/> : null
@@ -105,7 +108,7 @@ export default function Articles({ articles, handleClickLike, handleClickShare, 
                                     :
                                     null
                             }
-                        </div>
+                        </div> : null
                 )
                 })
             }

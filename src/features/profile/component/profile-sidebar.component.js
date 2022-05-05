@@ -56,17 +56,17 @@ export default function ProfileSidebar(
         setSortValideSelect(false);
         setSortInvalideSelect(false);
 
-        let filter = sortAttenteSelect ? '' : '&filters[commentaires][attente][$eq]=true';
-        setFilter(filter);
+        // let filter = sortAttenteSelect ? '' : '&filters[commentaires][attente][$eq]=true';
+        // setFilter(filter);
     }
 
     const sortValide = () => {
         setSortAttenteSelect(false);
         setSortValideSelect(!sortValideSelect);
         setSortInvalideSelect(false);
-
-        let filter = sortValideSelect ? '' : '&filters[commentaires][valide][$eq]=true';
-        setFilter(filter);
+        //
+        // let filter = sortValideSelect ? '' : '&filters[commentaires][valide][$eq]=true';
+        // setFilter(filter);
     }
 
     const sortInvalide = () => {
@@ -74,8 +74,8 @@ export default function ProfileSidebar(
         setSortValideSelect(false);
         setSortInvalideSelect(!sortInvalideSelect);
 
-        let filter = sortInvalideSelect ? '' :'&filters[$and][0][commentaires][valide][$eq]=false&filters[$and][1][commentaires][attente][$eq]=false';
-        setFilter(filter);
+        // let filter = sortInvalideSelect ? '' :'&filters[$and][0][commentaires][valide][$eq]=false&filters[$and][1][commentaires][attente][$eq]=false';
+        // setFilter(filter);
     }
 
     const handleAccueil = () => {

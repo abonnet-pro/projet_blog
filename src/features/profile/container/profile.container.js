@@ -127,11 +127,13 @@ export default function ProfileContainer() {
     }
 
     const uploadImg = () => {
-        setLoading(true)
+        if(!files) {
+            return;
+        }
 
+        setLoading(true);
         const formData = new FormData()
         formData.append('files', files[0])
-
 
         axios.post("http://localhost:1337/api/upload", formData,{
             headers: {

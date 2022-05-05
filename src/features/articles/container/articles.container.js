@@ -1,6 +1,6 @@
 import Articles from "../component/articles.component";
 import {useEffect, useState} from "react";
-import {API} from "../../../utils/url.utils";
+import {API, API_IMAGE} from "../../../utils/url.utils";
 import ReactPaginate from "react-paginate";
 import {ITEM_PER_PAGE, likeArticle, shareArticle} from "../service/articles.service";
 import ArticlesFilter from "../component/articles-filter.component";
@@ -17,9 +17,12 @@ export default function ArticlesContainer({ sort, profileAdmin }) {
     const [filters, setFilter] = useState('');
     const [form, setForm] = useState({ search: '' });
     const [articlesChecked, setArticlsChecked] = useState([]);
+    const [openDeleteSomeModal, setOpenDeleteSomeModal] = useState(false);
+    const [openDeleteModal, setOpenDeleteModal] = useState(false);
+    const [articleSelected, setArticleSelected] = useState(null);
 
     const callApi = () => {
-        fetch(`${API}/articles?populate=*&pagination[pageSize]=${ ITEM_PER_PAGE }&pagination[page]=${ itemOffset }${ sort }${ filters }&filters[visible][$eq]=true`, headerToken)
+        fetch(`${API}/articles?populate=*&pagination[pageSize]=${ ITEM_PER_PAGE }&pagination[page]=${ itemOffset }${ sort }${ filters }`, headerToken)
             .then(res => res.json())
             .then(data => {
                 setArticles(data.data)
@@ -49,19 +52,19 @@ export default function ArticlesContainer({ sort, profileAdmin }) {
         shareArticle(article, callApi)
     }
 
-    const handleDeleteArticle = (articleId) => {
+    const handleDeleteArticle = () => {
         const requestOptions = {
             method: 'DELETE',
             headers: { 'Content-type': 'application/json', 'Authorization' : 'bearer ' + token() },
         };
 
-        fetch(`http://localhost:1337/api/articles/${articleId}`, requestOptions)
+        fetch(`http://localhost:1337/api/articles/${articleSelected}`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if(data.data) {
                     toast.success("Article supprimé")
 
-                    let articlesCopied = [...articles].filter(article => article.id !== articleId);
+                    let articlesCopied = [...articles].filter(article => article.id !== articleSelected);
                     setArticles(articlesCopied);
 
                 } else {
@@ -71,6 +74,9 @@ export default function ArticlesContainer({ sort, profileAdmin }) {
                 }
             })
             .catch(error => console.log(error));
+
+        setArticleSelected(null)
+        setOpenDeleteModal(false);
     }
 
     const handleCheckArticles = (articlesId) => {
@@ -102,10 +108,55 @@ export default function ArticlesContainer({ sort, profileAdmin }) {
 
         callApi();
         setArticlsChecked([]);
+        setOpenDeleteSomeModal(false);
+    }
+
+    const showModalDeleteChecked = () => {
+        setOpenDeleteSomeModal(true);
+    }
+
+    const showModalDelete = (articlesId) => {
+        setArticleSelected(articlesId)
+        setOpenDeleteModal(true);
+    }
+
+    const handleClose = () => {
+        setOpenDeleteSomeModal(false);
+        setOpenDeleteModal(false);
     }
 
     return (
         <div className="postList">
+
+            {
+                openDeleteSomeModal ? (
+                    <div className="myModal">
+                        <div className="contentModal">
+                            <h1 className="text-primary text-center mb-3">Suppression</h1>
+                            <p>Etes vous sur de vouloir supprimer les elements selectionnés ?</p>
+                            <div id="buttons" className="d-flex justify-content-center mt-3">
+                                <button className="editButton me-3" onClick={ deleteArticlesChecked }>Valider</button>
+                                <button className="deleteButton" onClick={ handleClose }>Annuler</button>
+                            </div>
+                        </div>
+                    </div>
+                ) : null
+            }
+
+            {
+                openDeleteModal ? (
+                    <div className="myModal">
+                        <div className="contentModal">
+                            <h1 className="text-primary text-center mb-3">Suppression</h1>
+                            <p>Etes vous sur de vouloir supprimer cet article ?</p>
+                            <div id="buttons" className="d-flex justify-content-center mt-3">
+                                <button className="editButton me-3" onClick={ handleDeleteArticle }>Valider</button>
+                                <button className="deleteButton" onClick={ handleClose }>Annuler</button>
+                            </div>
+                        </div>
+                    </div>
+                ) : null
+            }
 
             <div className="d-inline-flex w-100">
                 {
@@ -115,7 +166,7 @@ export default function ArticlesContainer({ sort, profileAdmin }) {
                         null
                 }
                 {
-                    profileAdmin && articlesChecked.length > 0 ? <button data-toggle="modal" data-target="#exampleModal" className="deleteButton mt-4 ms-4" onClick={ deleteArticlesChecked }>Supprimer ({ articlesChecked.length })</button>
+                    profileAdmin && articlesChecked.length > 0 ? <button data-toggle="modal" data-target="#exampleModal" className="deleteButton mt-4 ms-4" onClick={ showModalDeleteChecked }>Supprimer ({ articlesChecked.length })</button>
                         : null
                 }
             </div>
@@ -130,7 +181,7 @@ export default function ArticlesContainer({ sort, profileAdmin }) {
                 articlesChecked={ articlesChecked }
                 handleClickLike={ handleClickLike }
                 handleClickShare={ handleClickShare }
-                handleDeleteArticle={ handleDeleteArticle }
+                handleDeleteArticle={ showModalDelete }
                 handleCheckArticles={ handleCheckArticles }/>
 
             <ReactPaginate
