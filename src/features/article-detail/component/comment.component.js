@@ -15,7 +15,12 @@ export default function Commentaires({ commentaires }) {
         return commentsValide;
     }
 
-    console.log(commentaires)
+    const checkDisplay = (commentaire) => {
+        return commentaire.attributes.valide ||
+            (commentaire?.attributes.utilisateur.data.attributes.username === contextPrototype.user?.username && commentaire.attributes.attente) ||
+            contextPrototype.userSave?.attributes?.admin && commentaire.attributes.valide ||
+            contextPrototype.userSave?.attributes?.admin && commentaire.attributes.attente
+    }
 
     return (
             <div className="comments">
@@ -26,7 +31,7 @@ export default function Commentaires({ commentaires }) {
                                 return (
                                     <div key={ commentaire.id }>
                                         {
-                                            commentaire.attributes.valide || (commentaire?.attributes.utilisateur.data.attributes.username === contextPrototype.user?.username && commentaire.attributes.attente) || contextPrototype.userSave?.attributes?.admin ?
+                                             checkDisplay(commentaire) ?
                                                 <div className="postComments">
                                                     <img src={ API_IMAGE + '/uploads/user_748f99fb59.png' } alt="avatar"/>
                                                     <span className="commentAuthorName">

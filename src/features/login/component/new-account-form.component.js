@@ -13,7 +13,7 @@ export default function NewAccountForm({ form, setForm, handleSubmit }) {
         const value = event.target.value
         setForm({ ...form, [key]: value })
 
-        if(key ==='password') {
+        if(key === 'password') {
             checkRegles(value);
         }
     }

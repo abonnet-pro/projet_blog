@@ -1,4 +1,5 @@
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 export default function Footer() {
 
@@ -6,6 +7,12 @@ export default function Footer() {
 
     const redirect = () => {
         navigate('/')
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        toast.success("Abonnement validé, vous recevrez très prochainement un email de confirmation")
     }
 
     return(
@@ -22,7 +29,7 @@ export default function Footer() {
 
             <div className="container pb-0">
                 <section className="">
-                    <form action="">
+                    <form action="" onSubmit={ handleSubmit }>
                         <div className="row d-flex justify-content-center">
                             <div className="col-auto">
                                 <p className="pt-2">
