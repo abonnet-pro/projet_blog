@@ -43,7 +43,7 @@ export default function NewAccountForm({ form, setForm, handleSubmit }) {
             setRegle4(false)
         }
 
-        if(value.match(new RegExp("[`~!:;@#$%\^&\*]"))){
+        if(value.match(new RegExp("[`~!:;@#$%^&*]"))){
             setRegle5(true)
         } else {
             setRegle5(false)
