@@ -15,10 +15,10 @@ export const getLectureTimeDisplay = (text) => {
     let minutes = Math.floor(timeSecond % 3600 / 60);
     let secondes = Math.floor(timeSecond % 3600 % 60);
 
-    let hDisplay = heures > 0 ? heures + (heures === 1 ? " heure, " : " heures, ") : "";
-    let mDisplay = minutes > 0 ? minutes + (minutes === 1 ? " minute, " : " minutes, ") : "";
-    let sDisplay = secondes >= 0 ? secondes + (secondes <= 1 ? " seconde" : " secondes") : "";
-    return hDisplay + mDisplay + sDisplay;
+    let heureDisplay = heures > 0 ? heures + (heures === 1 ? " heure, " : " heures, ") : "";
+    let minuteDisplay = minutes > 0 ? minutes + (minutes === 1 ? " minute, " : " minutes, ") : "";
+    let secondeDisplay = secondes >= 0 ? secondes + (secondes <= 1 ? " seconde" : " secondes") : "";
+    return heureDisplay + minuteDisplay + secondeDisplay;
 }
 
 export function isArticleLiked(article) {
